@@ -76,23 +76,42 @@ const dowloadChange = async () => {
 
     <a-card>
       <div>
-        <h1>QR Code Generator</h1>
-        <p>Generate QR code with custom size</p>
+        <h1 style="margin-bottom: 0px">QR Code Generator</h1>
+        <p style="margin-top: 0px; margin-bottom: 20px;">Generate QR code with any style you want</p>
       </div>
       <div class="marginBottom">
+        <h3 style="margin-bottom: 0">
+          Options:
+        </h3>
         <a-checkbox v-model:checked="image">Show image</a-checkbox>
         <a-checkbox v-model:checked="colourFull">Custom color</a-checkbox>
       </div>
-      <div v-if="!image" class="marginBottom">
+      <div class="marginBottom">
+        <h3 style="margin-bottom: 0">
+          Error level:
+        </h3>
         <a-segmented v-model:value="level" :options="segmentedData" />
       </div>
       <div class="marginBottom">
+        <h3 style="margin-bottom: 0">
+          Type:
+        </h3>
         <a-segmented v-model:value="type" :options="typeData" />
       </div>
       <div v-if="colourFull" class="marginBottom">
+        <h3 style="margin-bottom: 0">
+          Color:
+        </h3>
         <color-picker v-model:pureColor="pureColor" v-model:gradientColor="gradientColor"/>
       </div>
       <div v-if="image" class="marginBottom">
+        <h3 style="margin-bottom: 0">
+          Upload:
+        </h3>
+        <a-tooltip placement="right">
+          <template #title>
+            <span>Please upload just <br> images(SVG preferred)</span>
+          </template>
         <a-upload
             :maxCount="1"
             :before-upload="uploadImage"
@@ -103,7 +122,12 @@ const dowloadChange = async () => {
         >
           <a-button :icon="h(UploadOutlined)">Click to Upload</a-button>
         </a-upload>
+        </a-tooltip>
       </div>
+      <div>
+      <h3 style="margin-bottom: 0">
+        Size:
+      </h3>
       <a-button-group>
         <a-button @click="decline">
           <template #icon><MinusOutlined /></template>
@@ -114,20 +138,27 @@ const dowloadChange = async () => {
           large
         </a-button>
       </a-button-group>
-      <br />
-      <br />
-      <a-input v-model:value="userInput" placeholder="Enter the text " :maxlength="60" style="width: 50%" />
-      <br />
-      <br />
-      <br />
-      <a-space direction="vertical" align="center">
-        <a-qrcode  ref="qrcodeCanvasRef" v-if="!image" :value="userInput" :size="size" :color="pureColor" :error-level="level" :type="type"/>
-        <a-qrcode  ref="qrcodeCanvasRef" v-if="image" :value="userInput" :size="size" :icon-size="size / 4" error-level="H" :icon="imageURL" :color="pureColor" :type="type"/>
-      </a-space>
-      <div class="marginTop">
-        <a-button type="primary" @click="dowloadChange">Downlaod</a-button>
       </div>
 
+      <div class="marginBottom">
+        <h3 style="margin-bottom: 0">
+          Text:
+        </h3>
+      <a-input v-model:value="userInput" placeholder="Enter the text " :maxlength="60" style="width: 50%"/>
+      </div>
+
+      <div class="marginBottom">
+        <h3 style="margin-bottom: 5px">
+          Our Magic 🪄:
+        </h3>
+        <a-space direction="vertical" align="center">
+          <a-qrcode  ref="qrcodeCanvasRef" v-if="!image" :value="userInput" :size="size" :color="pureColor" :error-level="level" :type="type"/>
+          <a-qrcode  ref="qrcodeCanvasRef" v-if="image" :value="userInput" :size="size" :icon-size="size / 4" :error-level="level" :icon="imageURL" :color="pureColor" :type="type"/>
+        </a-space>
+      </div>
+      <div>
+        <a-button type="primary" @click="dowloadChange">Downlaod</a-button>
+      </div>
     </a-card>
   </div>
 </template>
