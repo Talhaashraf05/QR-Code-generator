@@ -73,7 +73,6 @@ const dowloadChange = async () => {
 
 <template>
   <div>
-
     <a-card>
       <div>
         <h1 style="margin-bottom: 0px">QR Code Generator</h1>
