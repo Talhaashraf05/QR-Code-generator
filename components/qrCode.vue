@@ -1,5 +1,4 @@
 <script setup>
-
 import {ColorPicker} from "vue3-colorpicker";
 import "vue3-colorpicker/style.css";
 import {UploadOutlined} from "@ant-design/icons-vue";
@@ -11,7 +10,7 @@ const colourFull = ref(false);
 const pureColor = ref("black");
 const gradientColor = ref("");
 const fileList = ref([]);
-const imageURL = ref("https://www.antdv.com/assets/logo.1ef800a8.svg");
+const imageURL = ref("https://www.svgrepo.com/show/43524/attention.svg");      //TODO need to add the link of my own svg icon
 const segmentedData = ['L', 'M', 'Q', 'H'];
 const level = ref(segmentedData[0]);
 const typeData= ['canvas','svg'];
@@ -30,14 +29,12 @@ const uploadImage = (file) => {
   }
 };
 
-
-
-const increase = () => {
+const sizeIncrease = () => {
   if (size.value >= 250) return;
   size.value = size.value + 10;
 };
 
-const decline = () => {
+const sizedecline = () => {
   if (size.value <= 100) return;
   size.value = size.value - 10;
 };
@@ -64,6 +61,7 @@ const dowloadChange = async () => {
     url = await qrcodeCanvasRef.value.toDataURL('image/png', 1.0);
     a.download = 'QRCode.png';
   }
+  console.log("Here is the URL: " , url)
   a.href = url;
   document.body.appendChild(a);
   a.click();
@@ -73,19 +71,46 @@ const dowloadChange = async () => {
 
 <template>
   <div>
-
     <a-card>
       <div>
         <h1 style="margin-bottom: 0px">QR Code Generator</h1>
         <p style="margin-top: 0px; margin-bottom: 20px;">Generate QR code with any style you want</p>
       </div>
       <div class="marginBottom">
-        <h3 style="margin-bottom: 0">
-          Options:
+        <h3 style="margin-bottom: 10px">
+          Image:
         </h3>
         <a-checkbox v-model:checked="image">Show image</a-checkbox>
-        <a-checkbox v-model:checked="colourFull">Custom color</a-checkbox>
+        <a-tooltip placement="right" v-if="image">
+          <template #title>
+            <span>Please upload just <br> images(SVG preferred)</span>
+          </template>
+          <a-upload
+              :maxCount="1"
+              :before-upload="uploadImage"
+              :file-list="fileList"
+              :showUploadList="false"
+              accept="image/png, image/jpeg, image/jpg, image/svg+xml"
+              @change="handleChange"
+          >
+            <a-button :icon="h(UploadOutlined)"></a-button>
+          </a-upload>
+        </a-tooltip>
       </div>
+      <div class="marginBottom">
+        <h3 style="margin-bottom: 0">
+          Custom color:
+        </h3>
+        <a-checkbox v-model:checked="colourFull">Custom color</a-checkbox>
+
+        <color-picker v-if="colourFull" v-model:pureColor="pureColor" v-model:gradientColor="gradientColor"/>
+      </div>
+<!--      <div v-if="colourFull" class="marginBottom">-->
+<!--        <h3 style="margin-bottom: 0">-->
+<!--          Color:-->
+<!--        </h3>-->
+<!--        <color-picker v-model:pureColor="pureColor" v-model:gradientColor="gradientColor"/>-->
+<!--      </div>-->
       <div class="marginBottom">
         <h3 style="margin-bottom: 0">
           Error level:
@@ -98,42 +123,17 @@ const dowloadChange = async () => {
         </h3>
         <a-segmented v-model:value="type" :options="typeData" />
       </div>
-      <div v-if="colourFull" class="marginBottom">
-        <h3 style="margin-bottom: 0">
-          Color:
-        </h3>
-        <color-picker v-model:pureColor="pureColor" v-model:gradientColor="gradientColor"/>
-      </div>
-      <div v-if="image" class="marginBottom">
-        <h3 style="margin-bottom: 0">
-          Upload:
-        </h3>
-        <a-tooltip placement="right">
-          <template #title>
-            <span>Please upload just <br> images(SVG preferred)</span>
-          </template>
-        <a-upload
-            :maxCount="1"
-            :before-upload="uploadImage"
-            :file-list="fileList"
-            :showUploadList="false"
-            accept="image/png, image/jpeg, image/jpg, image/svg+xml"
-            @change="handleChange"
-        >
-          <a-button :icon="h(UploadOutlined)">Click to Upload</a-button>
-        </a-upload>
-        </a-tooltip>
-      </div>
+
       <div>
       <h3 style="margin-bottom: 0">
         Size:
       </h3>
       <a-button-group>
-        <a-button @click="decline">
+        <a-button @click="sizedecline">
           <template #icon><MinusOutlined /></template>
           small
         </a-button>
-        <a-button @click="increase">
+        <a-button @click="sizeIncrease">
           <template #icon><PlusOutlined /></template>
           large
         </a-button>
@@ -145,6 +145,9 @@ const dowloadChange = async () => {
           Text:
         </h3>
       <a-input v-model:value="userInput" placeholder="Enter the text " :maxlength="60" style="width: 50%"/>
+        <p style="margin: 0; font-size: 10px; padding-left: 3px; color: limegreen">
+          It can be a URL, text, or anything you want to encode in the QR code
+        </p>
       </div>
 
       <div class="marginBottom">
@@ -153,7 +156,7 @@ const dowloadChange = async () => {
         </h3>
         <a-space direction="vertical" align="center">
           <a-qrcode  ref="qrcodeCanvasRef" v-if="!image" :value="userInput" :size="size" :color="pureColor" :error-level="level" :type="type"/>
-          <a-qrcode  ref="qrcodeCanvasRef" v-if="image" :value="userInput" :size="size" :icon-size="size / 4" :error-level="level" :icon="imageURL" :color="pureColor" :type="type"/>
+          <a-qrcode  ref="qrcodeCanvasRef" v-if="image" :value="userInput" :size="size" :color="pureColor" :icon-size="size / 4" :error-level="level" :icon="imageURL"  :type="type"/>
         </a-space>
       </div>
       <div>
@@ -167,7 +170,11 @@ const dowloadChange = async () => {
 .marginBottom {
   margin-bottom: 20px;
 }
-.marginTop{
-  margin-top: 20px;
+.marginBottom2{
+  margin-top: 30px;
+}
+
+:deep(.current-color){
+  border-radius: 3px !important;
 }
 </style>

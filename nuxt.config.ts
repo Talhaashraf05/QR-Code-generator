@@ -6,4 +6,14 @@ export default defineNuxtConfig({
     "@ant-design-vue/nuxt",
   ],
   components: true,
+  antd: {
+        extractStyle: true,
+    },
+vite:{
+  build: {
+    cssMinify: "lightningcss",
+    // minify: true,
+    minify: "terser",
+  },
+}
 })
