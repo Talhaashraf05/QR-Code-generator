@@ -1,75 +1,37 @@
-# Nuxt 3 Minimal Starter
+# QR Code Generator - Nuxt 3 Project
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This project is a dynamic **QR Code Generator** built with **Nuxt 3** and **Ant Design**. It allows users to generate QR codes for URLs, text, or other data, and download them as an image.
 
-## Setup
+## Key Features:
+- User-friendly interface built with **Ant Design** components.
+- Real-time preview of QR codes as you input the data.
+- Easy download functionality for saving the QR code as an image.
+- Responsive design, optimized for both desktop and mobile devices.
 
-Make sure to install the dependencies:
+## Installation Instructions
 
-```bash
-# npm
-npm install
+Make sure you have **Node.js** version 18.0.0 or higher installed.
 
-# pnpm
-pnpm install
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/Talhaashraf05/QR-Code-generator.git
+   
+2. **Install dependencies:**:
+   ```bash
+   npm install
 
-# yarn
-yarn install
+3. **Start the development server**:
+   ```bash
+    npm start
 
-# bun
-bun install
-```
+## Usage
+1. Enter the data you want to encode (e.g., URL, text, etc.).
+2. Preview your QR code in real-time as you input the data.
+3. Click the download button to generate and download your QR code as an image.
 
-## Development Server
+## Built With:
+- **Nuxt 3**: A modern Vue.js framework for building universal applications.
+- **Ant Design**: A comprehensive UI component library for creating a polished, professional user experience.
 
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Contributing
+Contributions are welcome! Feel free to submit a pull request or report issues.
