@@ -4,9 +4,5 @@ import QrCode from "~/components/qrCode.vue";
 </script>
 
 <template>
-<QrCode />
+  <QrCode />
 </template>
-
-<style scoped>
-
-</style>

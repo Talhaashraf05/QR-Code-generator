@@ -34,7 +34,7 @@ const sizeIncrease = () => {
   size.value = size.value + 10;
 };
 
-const sizedecline = () => {
+const sizeDecline = () => {
   if (size.value <= 100) return;
   size.value = size.value - 10;
 };
@@ -47,7 +47,7 @@ const handleChange = info => {
   }
 };
 
-const dowloadChange = async () => {
+const downloadChange = async () => {
   let url;
   const a = document.createElement("a");
 
@@ -73,8 +73,8 @@ const dowloadChange = async () => {
   <div>
     <a-card>
       <div>
-        <h1 style="margin-bottom: 0px">QR Code Generator</h1>
-        <p style="margin-top: 0px; margin-bottom: 20px;">Generate QR code with any style you want</p>
+        <h1 style="margin-bottom: 0">QR Code Generator</h1>
+        <p style="margin-top: 0; margin-bottom: 20px;">Generate QR code with any style you want</p>
       </div>
       <div class="marginBottom">
         <h3 style="margin-bottom: 10px">
@@ -129,7 +129,7 @@ const dowloadChange = async () => {
         Size:
       </h3>
       <a-button-group>
-        <a-button @click="sizedecline">
+        <a-button @click="sizeDecline">
           <template #icon><MinusOutlined /></template>
           small
         </a-button>
@@ -154,13 +154,13 @@ const dowloadChange = async () => {
         <h3 style="margin-bottom: 5px">
           Our Magic 🪄:
         </h3>
-        <a-space direction="vertical" align="center">
+        <a-space direction="vertical" >
           <a-qrcode  ref="qrcodeCanvasRef" v-if="!image" :value="userInput" :size="size" :color="pureColor" :error-level="level" :type="type"/>
           <a-qrcode  ref="qrcodeCanvasRef" v-if="image" :value="userInput" :size="size" :color="pureColor" :icon-size="size / 4" :error-level="level" :icon="imageURL"  :type="type"/>
         </a-space>
       </div>
       <div>
-        <a-button type="primary" @click="dowloadChange">Downlaod</a-button>
+        <a-button type="primary" @click="downloadChange">Download</a-button>
       </div>
     </a-card>
   </div>
@@ -170,10 +170,6 @@ const dowloadChange = async () => {
 .marginBottom {
   margin-bottom: 20px;
 }
-.marginBottom2{
-  margin-top: 30px;
-}
-
 :deep(.current-color){
   border-radius: 3px !important;
 }
